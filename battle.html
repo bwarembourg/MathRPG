@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>MathRPG</title>
+		<script src="js/square.js"></script>
+		<script src="js/ogre.js"></script>
+		<script src="js/hero.js"></script>
+		<script src="js/menu.js"></script>
+		<script src="js/maths.js"></script>
+		<script src="js/battle.js"></script>
+		<script src="js/system.js"></script>
+	</head>
+	<body style="background-color:black;">
+		<center>
+			<canvas id="game" width="500px" height="350px"></canvas>
+		</center>
+		
+		<script>
+
+			var imgBck = new Image();
+			imgBck.src="img/background.png";
+			imgBck.onload = function() {
+        		ctx.drawImage(imgBck, 0, 0);
+      		};
+			var c=document.getElementById("game");
+			var ctx=c.getContext("2d");
+			
+			var height=350;
+			var width=500;			
+			
+			var initialisation = function(){
+				drawBackground();
+				drawOgre();
+				drawHero();
+				requestAnimId = window.requestAnimationFrame(loop); 
+			}
+			
+			var loop = function(){
+				drawBackground();
+				animateOgre();
+				animateHero();
+				menu();
+				system();
+				requestAnimId = window.requestAnimationFrame(loop); 
+			}
+			
+			function drawBackground(){
+				ctx.drawImage(imgBck, 0, 0);
+			}
+			
+			window.onload = initialisation; 
+		</script>
+	</body>
+</html>

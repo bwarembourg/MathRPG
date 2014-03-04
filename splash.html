@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>MathRPG</title>
+	</head>
+	<body style="background-color:black;">
+		<center>
+			<canvas id="game" width="500px" height="350px"></canvas>
+		</center>
+		
+		<script>
+			var input=0;
+			window.document.onkeydown = getInput;
+
+
+			function getInput(e) {
+				input = window.event ? e.keyCode : e.which;
+				if(input==13){
+					location.replace("map.html")
+				}
+			}
+
+			var imgBck = new Image();
+			imgBck.src="img/splash.png";
+			imgBck.onload = function() {
+        		ctx.drawImage(imgBck, 0, 0);
+      		};
+			var c=document.getElementById("game");
+			var ctx=c.getContext("2d");
+			
+			var height=350;
+			var width=500;			
+			
+			var initialisation = function(){
+				drawBackground();
+
+			}
+			
+			var loop = function(){
+
+				requestAnimId = window.requestAnimationFrame(loop); 
+			}
+			
+			function drawBackground(){
+				ctx.drawImage(imgBck, 0, 0);
+			}
+			
+			window.onload = initialisation; 
+		</script>
+	</body>
+</html>

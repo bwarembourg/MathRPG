@@ -1,0 +1,128 @@
+
+<!-- saved from url=(0059)http://www.faire-des-jeux.com/download/pong/tuto_Pong3.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><script>
+  (function () {
+    // debut du code isole
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+      window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+      window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame']
+      || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+        
+    var requestAnimId;
+          
+    var canvasTerrainContext;
+    var terrainLongueur = 800;
+    var terrainLargeur = 600;
+    var filetLargeur = 6;
+    var couleurTerrain = "#000000";
+    var couleurFilet = "#FFFFFF";
+    var dessinerTerrain = function() {
+      // le filet
+      canvasTerrainContext.fillStyle = couleurFilet;
+      canvasTerrainContext.fillRect (terrainLongueur/2 - filetLargeur/2, 0, filetLargeur, terrainLargeur);
+    } 
+        
+    var canvasScoreContext;
+    var positionXScoreJoueur1 = 330;
+    var positionYScoreJoueur1 = 50;
+    var positionXScoreJoueur2 = 435;
+    var positionYScoreJoueur2 = 50;
+    var couleurScore = "#FFFFFF";
+    var afficherScore = function(scoreJoueur1, scoreJoueur2) {
+      canvasScoreContext.font = "50pt serif";
+      canvasScoreContext.fillStyle  = couleurScore;
+      canvasScoreContext.fillText(scoreJoueur1, positionXScoreJoueur1, positionYScoreJoueur1);
+      canvasScoreContext.fillText(scoreJoueur2, positionXScoreJoueur2, positionYScoreJoueur2);
+    }
+  
+    var canvasRaquettesContext;
+    var largeurRaquette = 20;
+    var longueurRaquette = 70;
+    var positionXRaquetteA = 30;
+    var positionYRaquetteA = terrainLargeur/2;
+    var positionXRaquetteB = 750;
+    var positionYRaquetteB = terrainLargeur/2;
+    var couleurRaquette = "#FFFFFF";
+    var dessinerRaquettes = function() {
+      // la raquette A
+      canvasRaquettesContext.fillStyle = couleurRaquette;
+      canvasRaquettesContext.fillRect (positionXRaquetteA, positionYRaquetteA, largeurRaquette, longueurRaquette);
+      // la raquette B        
+      canvasRaquettesContext.fillStyle = couleurRaquette;
+      canvasRaquettesContext.fillRect (positionXRaquetteB, positionYRaquetteB, largeurRaquette, longueurRaquette);        
+    }
+  
+    var largeurBalle = 10;
+    var positionXBalle = 100;
+    var positionYBalle = 100;
+    var dessinerBalle = function() {
+      canvasRaquettesContext.fillStyle = couleurRaquette;
+      canvasRaquettesContext.fillRect (positionXBalle, positionYBalle, largeurBalle, largeurBalle);
+    }
+    var incrementXBalle = 5;
+    var incrementYBalle = 5;
+    var animerBalle = function() {
+        positionXBalle += incrementXBalle;
+        if ( positionXBalle > terrainLongueur || positionXBalle < 0 ) {
+            incrementXBalle = -incrementXBalle;
+        }
+        positionYBalle += incrementYBalle;
+        if ( positionYBalle > terrainLargeur || positionYBalle < 0 ) {
+            incrementYBalle = -incrementYBalle;
+        }  
+        dessinerBalle();
+    }
+     
+    var creerCanvasContext = function(name, width, height, zindex, color) {
+      var canvas = window.document.createElement("canvas");
+      canvas.id = name;
+      canvas.style.position = "absolute";
+      if ( color != undefined )
+        canvas.style.background = color;
+      canvas.style.zIndex = zindex;
+      canvas.width = width;
+      canvas.height = height;
+      document.body.appendChild(canvas);
+      return canvas.getContext('2d');
+    }
+  
+    var initialisation = function() {
+      // le code de l'initialisation
+      canvasTerrainContext = creerCanvasContext("canvasTerrain", terrainLongueur, terrainLargeur, 0, couleurTerrain);
+      dessinerTerrain();
+  
+      canvasScoreContext = creerCanvasContext("canvasScore", terrainLongueur, terrainLargeur, 1);
+      afficherScore(0, 0);
+  
+      canvasRaquettesContext = creerCanvasContext("canvasRaquettes", terrainLongueur, terrainLargeur, 1);
+      dessinerRaquettes();
+      dessinerBalle();
+              
+      requestAnimId = window.requestAnimationFrame(principale); // premier appel de principale au rafraichissement de la page
+    }
+            
+    var principale = function() {
+      // le code du jeu
+      canvasRaquettesContext.clearRect ( 0, 0 , terrainLongueur , terrainLargeur );
+      animerBalle();
+      dessinerRaquettes();
+      //requestAnimId = window.requestAnimationFrame(principale); // rappel de principale au prochain rafraichissement de la page
+    }
+     
+    window.onload = initialisation; // appel de la fonction initialisation au chargement de la page
+      
+   // fin du code isole
+  })();
+  </script>
+ </head><body>
+  <h1>PONG</h1>
+  <a href="http://www.faire-des-jeux.com/">Faire des jeux</a>
+  <br><a href="http://www.faire-des-jeux.com/download/pong/tuto_Pong1.html">Tuto Pong 1ere partie</a>
+  <br><a href="http://www.faire-des-jeux.com/download/pong/tuto_Pong2.html">Tuto Pong 2eme partie</a>
+  <br><a href="http://www.faire-des-jeux.com/download/pong/tuto_Pong4.html">Tuto Pong 4eme partie</a>
+  <br><a href="http://www.faire-des-jeux.com/download/pong/tuto_Pong5.html">Tuto Pong 5eme partie</a><br><br>
+ 
+
+<canvas id="canvasTerrain" width="800" height="600" style="position: absolute; background-color: rgb(0, 0, 0); z-index: 0; background-position: initial initial; background-repeat: initial initial;"></canvas><canvas id="canvasScore" width="800" height="600" style="position: absolute; z-index: 1;"></canvas><canvas id="canvasRaquettes" width="800" height="600" style="position: absolute; z-index: 1;"></canvas></body></html>

@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>MathRPG</title>
+		<script src="js/map.js"></script>
+	</head>
+	<body style="background-color:black;">
+		<center>
+			<canvas id="game" width="500px" height="350px"></canvas>
+		</center>
+		
+		<script>
+			var c = document.getElementById("game");
+			var ctx = c.getContext("2d");
+			
+			var height = 350;
+			var width = 500;
+			
+			var initialisation = function() {
+				requestAnimId = window.requestAnimationFrame(loop);
+			}
+
+			var loop = function() {
+				ctx.clearRect(0,0,500,350);
+				mapping();
+				characters();
+				requestAnimId = window.requestAnimationFrame(loop); 
+			}
+			
+			window.onload = initialisation; 
+		</script>
+	</body>
+</html>

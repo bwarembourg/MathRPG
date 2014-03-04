@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>MathRPG</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<center>
+			<p id="scenar" >Coucou</p>
+		</center>
+		
+		<script>
+			var input=0;count=0;
+			var scenar = document.getElementById("scenar");
+
+			function getInput(e) {
+				input = window.event ? e.keyCode : e.which;
+				if(input==13){
+					count++;
+					switch(count){
+						case 1 : scenar.innerText="Ses experiences ont corrompu l'ensemble de notre monde.";break;
+						case 2 : scenar.innerText="Les esprits de Newton, Einstein, Pythagore et bien d'autres se sont éveillés pour mettre fin à cette catastrophe.";break;
+						case 3 : scenar.innerText="Lors de cette démo, notre héros se rend au château de Newton pour apprendre de nouvelles formules.";break;
+						case 4 : location.replace("splash.html");break;
+					}
+				}
+			}
+
+			window.document.onkeydown = getInput;
+
+			scenar.innerText="Segfaultoff, un savant-réellement-fou a realisé des experiences pour montrer au monde que un plus un font trois.";
+		</script>
+	</body>
+</html>

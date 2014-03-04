@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>MathRPG</title>
+
+	</head>
+	<body style="background-color:black;">
+		<center>
+			<canvas id="game" width="500px" height="350px"></canvas>
+		</center>
+		
+		<script>
+			var input=0;
+			window.document.onkeydown = getInput;
+
+
+			function getInput(e) {
+				input = window.event ? e.keyCode : e.which;
+				if(input==13){
+					location.replace("battle.html")
+				}
+			}
+
+			var imgBck = new Image();
+			imgBck.src="img/background.png";
+			imgBck.onload = function() {
+        		ctx.drawImage(imgBck, 0, 0);
+      		};
+			var c=document.getElementById("game");
+			var ctx=c.getContext("2d");
+			
+			var height=350;
+			var width=500;			
+			
+			var initialisation = function(){
+				drawBackground();
+				
+			}
+			
+			var loop = function(){
+
+				requestAnimId = window.requestAnimationFrame(loop); 
+			}
+			
+			function drawBackground(){
+				ctx.drawImage(imgBck, 0, 0);
+				ctx.fillStyle="black";
+				ctx.fillRect(50,50,400,250);
+				ctx.fillStyle="white";
+				ctx.font="20px Arial";
+				ctx.fillText("Victoire !!",200,80);
+				ctx.font="14px Arial";
+				ctx.fillStyle="green";
+				ctx.fillText("Nombre de calculs réussis : "+localStorage['win'],70,120);
+				ctx.fillStyle="red";
+				ctx.fillText("Nombre de calculs ratés : "+localStorage['lose'],70,150);
+				ctx.fillStyle="white";
+				var xp = localStorage['win']*1000-localStorage['lose']*500; 
+				ctx.fillText("Expérience gagné : "+ xp +" xp",70,180);
+
+			}
+			
+			window.onload = initialisation; 
+		</script>
+	</body>
+</html>
