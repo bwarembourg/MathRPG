@@ -20,6 +20,10 @@ function drawHero(){
 	ctx.drawImage(imgHero,heroX,heroY);
 }
 
+function doSomething(){
+  alert("coucou");
+}
+
 function animateHero(){
 	countHero++;
 	if(countHero==8){
